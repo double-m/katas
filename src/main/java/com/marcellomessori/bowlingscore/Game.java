@@ -5,14 +5,14 @@ class Game {
 	int score = 0;
 	boolean isSecondRollOfAFrame;
 	int valueOfPreviousRollWas;
-	boolean wasSpare;
+	int rollLeftToAddForStrike;
 
 	public void roll(int pins) {
-		if (wasSpare) {
+		if (rollLeftToAddForStrike > 0) {
 			score += pins;
-			wasSpare = false;
+			rollLeftToAddForStrike--;
 		}
-
+		
 		score += pins;
 
 		setStatusForTheNextRoll(pins);
@@ -26,16 +26,24 @@ class Game {
 		score = i;
 		isSecondRollOfAFrame = false;
 		valueOfPreviousRollWas = 0;
-		wasSpare = false;
+		rollLeftToAddForStrike = 0;
 	}
 
 	private void setStatusForTheNextRoll(int pins) {
+		//spare
 		if (isSecondRollOfAFrame && valueOfPreviousRollWas + pins == 10) {
-			wasSpare = true;
+			rollLeftToAddForStrike = 1;
 		}
 
+		// strike
+		if (!isSecondRollOfAFrame && pins == 10) {
+			rollLeftToAddForStrike = 2;
+		}
+		else {
+			isSecondRollOfAFrame = !isSecondRollOfAFrame;
+		}
+		
 		valueOfPreviousRollWas = pins;
-		isSecondRollOfAFrame = !isSecondRollOfAFrame;
 	}
 
 }

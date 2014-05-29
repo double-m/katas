@@ -56,7 +56,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void shouldComputeAFrame() {
+	public void shouldComputeAFrameGivenAnInitialization() {
 		game.init(5);
 
 		game.roll(4);
@@ -67,13 +67,27 @@ public class GameTest {
 	
 	@Test
 	public void shouldComputeAFrameWithASpare() {
-		game.init(14);
+		game.init(0);
 
 		game.roll(6);
 		game.roll(4);
 		int pinsNextRoll = 5;
 		game.roll(pinsNextRoll);
 		
-		assertEquals(29 + pinsNextRoll, game.score());
+		assertEquals(10 + pinsNextRoll*2, game.score());
+	}
+	
+	@Test
+	public void shouldComputeAFrameWithAStrike() {
+		game.init(0);
+
+		game.roll(10);
+		int pinsNextRoll1 = 1;
+		int pinsNextRoll2 = 2;
+		game.roll(pinsNextRoll1);
+		game.roll(pinsNextRoll2);
+		
+		assertEquals(10 + pinsNextRoll1*2 + pinsNextRoll2*2, game.score());
 	}
 }
+
