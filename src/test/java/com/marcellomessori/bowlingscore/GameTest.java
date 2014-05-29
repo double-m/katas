@@ -21,6 +21,8 @@ public class GameTest {
 
 	@Ignore
 	public void shouldReturnTheFinalResultGivenByTheExample() {
+		game.init(0);
+
 		game.roll(1);
 		game.roll(4);
 		
@@ -54,17 +56,22 @@ public class GameTest {
 	}
 
 	@Test
-	public void shouldAddARollToTheScore() {
-		game.roll(1);
-		
-		assertEquals(1, game.score());
-	}
+	public void shouldComputeTheFirstTwoRollsToTheScore() {
+		game.init(0);
 
-	@Test
-	public void shouldAddAnotherRollToTheScore() {
 		game.roll(1);
 		game.roll(4);
 		
 		assertEquals(5, game.score());
+	}
+	
+	@Test
+	public void shouldComputeAnotherTwoRollsToTheScore() {
+		game.init(5);
+
+		game.roll(4);
+		game.roll(5);
+		
+		assertEquals(14, game.score());
 	}
 }

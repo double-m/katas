@@ -12,4 +12,8 @@ class Game {
 		return score;
 	}
 
+	void init(int i) {
+		score = i;
+	}
+
 }
