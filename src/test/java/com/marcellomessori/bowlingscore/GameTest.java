@@ -54,24 +54,26 @@ public class GameTest {
 		
 		assertEquals(133, game.score());
 	}
-
-	@Test
-	public void shouldComputeTheFirstTwoRollsToTheScore() {
-		game.init(0);
-
-		game.roll(1);
-		game.roll(4);
-		
-		assertEquals(5, game.score());
-	}
 	
 	@Test
-	public void shouldComputeAnotherTwoRollsToTheScore() {
+	public void shouldComputeAFrame() {
 		game.init(5);
 
 		game.roll(4);
 		game.roll(5);
 		
 		assertEquals(14, game.score());
+	}
+	
+	@Test
+	public void shouldComputeAFrameWithASpare() {
+		game.init(14);
+
+		game.roll(6);
+		game.roll(4);
+		int pinsNextRoll = 5;
+		game.roll(pinsNextRoll);
+		
+		assertEquals(29 + pinsNextRoll, game.score());
 	}
 }
