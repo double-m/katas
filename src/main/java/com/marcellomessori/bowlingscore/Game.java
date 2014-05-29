@@ -18,37 +18,6 @@ class Game {
 		}
 	}
 
-	private void updateFrame() {
-		if (!isSecondRollOfAFrame) {
-			frame++;
-		}
-	}
-
-	private boolean checkExtraBall() throws Exception {
-		boolean isTheLastBall = false;
-		
-		updateFrame();
-
-		if ( frame > 10 && !isSecondRollOfAFrame) {
-			if (rollLeftToAddForSpareOrStrike == 1) {
-				// extra ball
-				isTheLastBall = true;
-			}
-			else {
-				throw new Exception("Exceeded number of frames: this roll started frame number " + frame + " (only 10 allowed)");
-			}
-		}
-		
-		return isTheLastBall;
-	}
-
-	private void checkBonus(int pins) {
-		if (rollLeftToAddForSpareOrStrike > 0) {
-			score += pins;
-			rollLeftToAddForSpareOrStrike--;
-		}
-	}
-
 	public int score() {
 		return score;
 	}
@@ -78,4 +47,34 @@ class Game {
 		valueOfPreviousRollWas = pins;
 	}
 
+	private void updateFrame() {
+		if (!isSecondRollOfAFrame) {
+			frame++;
+		}
+	}
+
+	private boolean checkExtraBall() throws Exception {
+		boolean isAnExtraBall = false;
+		
+		updateFrame();
+
+		if ( frame > 10 && !isSecondRollOfAFrame) {
+			if (rollLeftToAddForSpareOrStrike > 0) {
+				// extra ball
+				isAnExtraBall = true;
+			}
+			else {
+				throw new Exception("Exceeded number of frames: this roll started frame number " + frame + " (only 10 allowed)");
+			}
+		}
+		
+		return isAnExtraBall;
+	}
+
+	private void checkBonus(int pins) {
+		if (rollLeftToAddForSpareOrStrike > 0) {
+			score += pins;
+			rollLeftToAddForSpareOrStrike--;
+		}
+	}
 }

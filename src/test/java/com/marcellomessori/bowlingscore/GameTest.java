@@ -108,7 +108,53 @@ public class GameTest {
 	}
 	
 	@Test
-	public void shouldNotThrowAnyExceptionInCaseOfExtraBall() throws Exception {
+	public void shouldThrowAnExceptionInCaseOfExtraRollsAfterSpare() throws Exception {
+		game.init(0);
+
+		// frames 1 to 9
+		for (int i = 0; i < 9; i++) {
+			game.roll(5);
+			game.roll(0);
+		}
+		// frame 10: spare
+		game.roll(5);
+		game.roll(5);
+		// extra ball
+		game.roll(1);
+		
+		try {
+			game.roll(1);
+			fail("Should have thrown an exception");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void shouldThrowAnExceptionInCaseOfExtraRollsAfterStrike() throws Exception {
+		game.init(0);
+
+		// frames 1 to 9
+		for (int i = 0; i < 9; i++) {
+			game.roll(5);
+			game.roll(0);
+		}
+		// frame 10: strike
+		game.roll(10);
+		// extra ball
+		game.roll(1);
+		game.roll(1);
+		
+		try {
+			game.roll(1);
+			fail("Should have thrown an exception");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void shouldManageTheExtraBallOnSpare() throws Exception {
 		game.init(0);
 
 		// frames 1 to 9
@@ -123,6 +169,24 @@ public class GameTest {
 		game.roll(5);
 		
 		assertEquals(60, game.score());
+	}
+	
+	@Test
+	public void shouldManageTheExtraBallOnStrike() throws Exception {
+		game.init(0);
+
+		// frames 1 to 9
+		for (int i = 0; i < 9; i++) {
+			game.roll(5);
+			game.roll(0);
+		}
+		// frame 10: strike
+		game.roll(10);
+		// extra ball
+		game.roll(1);
+		game.roll(1);
+		
+		assertEquals(45 + 10 + 1 + 1, game.score());
 	}
 }
 
