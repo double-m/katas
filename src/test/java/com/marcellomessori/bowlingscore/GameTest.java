@@ -19,8 +19,8 @@ public class GameTest {
     public void tearDown() {
     }
 
-	@Ignore
-	public void shouldReturnTheFinalResultGivenByTheExample() {
+	@Test
+	public void shouldReturnTheFinalResultGivenByTheExample() throws Exception {
 		game.init(0);
 
 		game.roll(1);
@@ -50,13 +50,13 @@ public class GameTest {
 		
 		game.roll(2);
 		game.roll(8);
-		game.roll(6);
+		game.roll(6); // extra ball
 		
 		assertEquals(133, game.score());
 	}
 	
 	@Test
-	public void shouldComputeAFrameGivenAnInitialization() {
+	public void shouldComputeAFrameGivenAnInitialization() throws Exception {
 		game.init(5);
 
 		game.roll(4);
@@ -66,7 +66,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void shouldComputeAFrameWithASpare() {
+	public void shouldComputeAFrameWithASpare() throws Exception {
 		game.init(0);
 
 		game.roll(6);
@@ -78,7 +78,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void shouldComputeAFrameWithAStrike() {
+	public void shouldComputeAFrameWithAStrike() throws Exception {
 		game.init(0);
 
 		game.roll(10);
@@ -88,6 +88,41 @@ public class GameTest {
 		game.roll(pinsNextRoll2);
 		
 		assertEquals(10 + pinsNextRoll1*2 + pinsNextRoll2*2, game.score());
+	}
+	
+	@Test
+	public void shouldThrowAnExceptionInCaseOfExtraRolls() throws Exception {
+		game.init(0);
+
+		for (int i = 0; i < 10; i++) {
+			game.roll(1);
+			game.roll(2);
+		}
+		
+		try {
+			game.roll(1);
+			fail("Should have thrown an exception");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void shouldNotThrowAnyExceptionInCaseOfExtraBall() throws Exception {
+		game.init(0);
+
+		// frames 1 to 9
+		for (int i = 0; i < 9; i++) {
+			game.roll(5);
+			game.roll(0);
+		}
+		// frame 10: spare
+		game.roll(5);
+		game.roll(5);
+		// extra ball
+		game.roll(5);
+		
+		assertEquals(60, game.score());
 	}
 }
 
