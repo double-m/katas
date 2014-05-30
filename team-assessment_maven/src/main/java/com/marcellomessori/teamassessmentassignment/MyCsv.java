@@ -21,18 +21,41 @@ class MyCsv {
 	}
 
 	public String display() {
-		return display(csvLines.size()-1);
+		return display(csvLines.size() - 1);
 	}
 
-	public String display(int recordNumber) {
-		int numberOfLinesToDisplay = Math.min(recordNumber+1, csvLines.size());
+	public String display(int linesPerPage) {
+		return display(linesPerPage, 1);
+	}
+
+	public String display(int linesPerPage, int pageNumber) {
+		int[] displayRange = calculateDisplayRange(linesPerPage, pageNumber);
+
 		DecoratedTableWithHeader decoratedTable = new DecoratedTableWithHeader();
-		for (int lineNumber = 0; lineNumber < numberOfLinesToDisplay; lineNumber++) {
+		decoratedTable.addCsvLine(csvLines.get(0));
+		for (int lineNumber = displayRange[0]; lineNumber <= displayRange[1]; lineNumber++) {
 			decoratedTable.addCsvLine(csvLines.get(lineNumber));
 		}
+
 		return decoratedTable.display();
 	}
-	
+
+	private int[] calculateDisplayRange(int linesPerPage, int pageNumber) {
+		int recordTotal = csvLines.size() - 1;
+		int numberOfRecordToDisplay = Math.min(linesPerPage, recordTotal);
+		int firstPageNumber = 1;
+		int lastPageNumber = recordTotal / numberOfRecordToDisplay;
+		if (recordTotal % numberOfRecordToDisplay > 0) {
+			lastPageNumber += 1;
+		}
+		int numberOfThePageToDisplay = Math.min(pageNumber, lastPageNumber);
+		numberOfThePageToDisplay = Math.max(numberOfThePageToDisplay, firstPageNumber);
+		int startingLineToDisplay = (numberOfThePageToDisplay - 1) * numberOfRecordToDisplay + 1;
+		int endingLineToDisplay = Math.min(numberOfThePageToDisplay * numberOfRecordToDisplay, recordTotal);
+		int[] firstAndLastRecordToDisplay = { startingLineToDisplay, endingLineToDisplay };
+		return firstAndLastRecordToDisplay;
+	}
+
 	private void init(URL csvPersonsFile) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvPersonsFile.getPath()));
 
