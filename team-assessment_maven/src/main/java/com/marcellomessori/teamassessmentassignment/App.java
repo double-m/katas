@@ -12,7 +12,7 @@ public class App
 		
 		try {
 			MyCsv myCsv = new MyCsv(resourceFileName);
-			System.out.println(myCsv.view());
+			System.out.println(myCsv.display());
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

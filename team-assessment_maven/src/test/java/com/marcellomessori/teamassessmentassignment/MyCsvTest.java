@@ -27,11 +27,21 @@ public class MyCsvTest {
 	}
 
 	@Test
-	public void shoudReturnAnHeaderFileCOntainingTheBasicFields() {
-		String header = myCsv.getHeaderString();
-		assertTrue(header.contains("Name"));
-		assertTrue(header.contains("Age"));
-		assertTrue(header.contains("City"));
+	public void shoudReturnTheFormattedHeader() {
+		String header = myCsv.getFormattedHeader();
+		assertEquals("|Name     |Age|City     |", header);
+	}
+
+	@Test
+	public void shoudReturnAFormattedDataLine() {
+		String header = myCsv.getFormattedRecord(5);
+		assertEquals("|Yuri     |23 |Moscow   |", header);
+	}
+
+	@Test
+	public void shoudReturnTheFormattedLineBreak() {
+		String header = myCsv.getFormattedLineBreak();
+		assertEquals("+---------+---+---------+", header);
 	}
 
 	@Ignore
