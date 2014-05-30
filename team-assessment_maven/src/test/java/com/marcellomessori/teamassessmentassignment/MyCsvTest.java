@@ -1,6 +1,7 @@
 package com.marcellomessori.teamassessmentassignment;
 
 import static org.junit.Assert.*;
+import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,8 +13,14 @@ public class MyCsvTest {
     }
 
 	@Test
-	public void shoudBeReplacedWithSomethingWiser() {
-		assertEquals(true, true);
+	public void shoudReturnFileNotFoundExceptionWhenItCannotFindTheSourceFile() {
+		try {
+			new MyCsv("nonExistingFile.csv");
+			fail("Should have thrown a FileNotFoundException.");
+		}
+		catch (FileNotFoundException e) {
+			assertEquals(true, true);
+		}
 	}
 
 	@Ignore
