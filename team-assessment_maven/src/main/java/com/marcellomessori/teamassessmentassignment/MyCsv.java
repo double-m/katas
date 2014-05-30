@@ -47,7 +47,7 @@ class MyCsv {
 	}
 
 	public String getFormattedLineBreak() {
-		StringBuilder decorateLine = new StringBuilder(VERTEX_DECORATOR);
+		StringBuilder decorateLine = new StringBuilder();
 		for (int colWidth : maxColWidths) {
 			decorateLine.append(String.format("%" + colWidth + "s", "").replace(" ", HORIZONTAL_DECORATOR));
 			decorateLine.append(VERTEX_DECORATOR);
@@ -58,7 +58,7 @@ class MyCsv {
 	private String getFormattedLine(int csvArrayIndex) {
 		String[] items = csvLines.get(csvArrayIndex).split(CSV_SEPARATOR);
 
-		StringBuilder decorateLine = new StringBuilder(VERTICAL_DECORATOR);
+		StringBuilder decorateLine = new StringBuilder();
 		for (int i = 0; i < maxColWidths.length; i++) {
 			int maxWidth = Math.max(maxColWidths[i], items[i].length());
 			decorateLine.append(String.format("%-" + maxWidth + "s", items[i]));

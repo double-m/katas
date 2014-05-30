@@ -29,19 +29,19 @@ public class MyCsvTest {
 	@Test
 	public void shoudReturnTheFormattedHeader() {
 		String header = myCsv.getFormattedHeader();
-		assertEquals("|Name     |Age|City     |", header);
+		assertEquals("Name     |Age|City     |", header);
 	}
 
 	@Test
 	public void shoudReturnAFormattedDataLine() {
 		String header = myCsv.getFormattedRecord(5);
-		assertEquals("|Yuri     |23 |Moscow   |", header);
+		assertEquals("Yuri     |23 |Moscow   |", header);
 	}
 
 	@Test
 	public void shoudReturnTheFormattedLineBreak() {
 		String header = myCsv.getFormattedLineBreak();
-		assertEquals("+---------+---+---------+", header);
+		assertEquals("---------+---+---------+", header);
 	}
 
 	@Ignore
