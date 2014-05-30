@@ -35,13 +35,6 @@ public class MyCsvTest {
 		expectedDisplayPage2Length2.append("Mary  |35 |Munich|");
 		expectedDisplayPage2Length2.append(LINE_SEPARATOR);
 		expectedDisplayPage2Length2.append("Jaques|66 |Paris |");
-		
-		expectedDisplayLastPageLength3 = new StringBuilder();
-		expectedDisplayLastPageLength3.append("Name |Age|City  |");
-		expectedDisplayLastPageLength3.append(LINE_SEPARATOR);
-		expectedDisplayLastPageLength3.append("-----+---+------+");
-		expectedDisplayLastPageLength3.append(LINE_SEPARATOR);
-		expectedDisplayLastPageLength3.append("Nadia|29 |Madrid|");
 	}
 
 	@Test
@@ -65,11 +58,4 @@ public class MyCsvTest {
 		assertEquals(expectedDisplayPage2Length2.toString(), myCsv.display(2, 2));
 	}
 	
-	@Test
-	public void shoudBeResilientToExceedingValues() {
-		assertEquals(expectedDisplayLastPageLength3.toString(), myCsv.display(3, 999));
-		assertEquals(myCsv.display(), myCsv.display(999, 1));
-		assertEquals(myCsv.display(), myCsv.display(999, 999));
-		assertEquals(myCsv.display(), myCsv.display(999, -1));
-	}
 }
