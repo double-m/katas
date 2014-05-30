@@ -1,6 +1,6 @@
 ### Bowling Score coding kata ###
 
 Goals:
-	* refresh TDD
-	* refresh GIT
-	* learn GIT-HUB
+* refresh TDD
+* refresh GIT
+* learn GIT-HUB
