@@ -7,24 +7,33 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class MyCsvTest {
+public class DecoratedTableWithHeaderTest {
 
-	private MyCsv myCsv;
+	private DecoratedTableWithHeader decoratedTable;
 	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
 	@Before
 	public void setUp() throws FileNotFoundException, IOException {
-		myCsv = new MyCsv("persons.csv");
+		decoratedTable = new DecoratedTableWithHeader();
+		decoratedTable.addCsvLine("Name;Age;City");
+		decoratedTable.addCsvLine("Peter;42;New York");
+		decoratedTable.addCsvLine("Paul;57;London");
+		decoratedTable.addCsvLine("Mary;35;Munich");
 	}
 
 	@Test
-	public void shoudReturnFileNotFoundExceptionWhenItCannotFindTheSourceFile() throws IOException {
-		try {
-			new MyCsv("nonExistingFile.csv");
-			fail("Should have thrown a FileNotFoundException.");
-		} catch (FileNotFoundException e) {
-			assertEquals(true, true);
-		}
+	public void shoudReturnTheFormattedHeader() {
+		assertEquals("Name |Age|City    |", decoratedTable.getFormattedHeader());
+	}
+
+	@Test
+	public void shoudReturnAFormattedDataLine() {
+		assertEquals("Paul |57 |London  |", decoratedTable.getFormattedRecord(2));
+	}
+
+	@Test
+	public void shoudReturnTheFormattedLineBreak() {
+		assertEquals("-----+---+--------+", decoratedTable.getFormattedLineBreak());
 	}
 
 	@Test
@@ -39,7 +48,7 @@ public class MyCsvTest {
 		expectedDisplay.append("Paul |57 |London  |");
 		expectedDisplay.append(LINE_SEPARATOR);
 		expectedDisplay.append("Mary |35 |Munich  |");
-		assertEquals(expectedDisplay.toString(), myCsv.display(3));
+		assertEquals(expectedDisplay.toString(), decoratedTable.display());
 	}
 
 	@Ignore
