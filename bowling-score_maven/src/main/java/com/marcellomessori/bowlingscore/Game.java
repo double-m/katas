@@ -2,11 +2,11 @@ package com.marcellomessori.bowlingscore;
 
 class Game {
 
-	int score = 0;
-	boolean isSecondRollOfAFrame;
-	int valueOfPreviousRollWas;
-	int rollLeftToAddForSpareOrStrike;
-	int frame;
+	private int score;
+	private boolean isSecondRollOfAFrame;
+	private int valueOfPreviousRollWas;
+	private int rollLeftToAddForSpareOrStrike;
+	private int frame;
 	
 	public void roll(int pins) throws Exception {
 		boolean isTheExtraBall = checkExtraBall();
@@ -22,8 +22,8 @@ class Game {
 		return score;
 	}
 
-	public void init(int i) {
-		score = i;
+	public void init(int previousScore) {
+		score = previousScore;
 		isSecondRollOfAFrame = false;
 		valueOfPreviousRollWas = 0;
 		rollLeftToAddForSpareOrStrike = 0;
@@ -31,16 +31,18 @@ class Game {
 	}
 
 	private void setStatusForTheNextRoll(int pins) {
-		//spare
-		if (isSecondRollOfAFrame && valueOfPreviousRollWas + pins == 10) {
+		boolean isSpare = isSecondRollOfAFrame && valueOfPreviousRollWas + pins == 10;
+		boolean isStrike = !isSecondRollOfAFrame && pins == 10;
+		
+		if (isSpare) {
 			rollLeftToAddForSpareOrStrike = 1;
 		}
 
-		// strike
-		if (!isSecondRollOfAFrame && pins == 10) {
+		if (isStrike) {
 			rollLeftToAddForSpareOrStrike = 2;
 		}
-		else {
+		
+		if (!isStrike) {
 			isSecondRollOfAFrame = !isSecondRollOfAFrame;
 		}
 		
@@ -60,7 +62,6 @@ class Game {
 
 		if ( frame > 10 && !isSecondRollOfAFrame) {
 			if (rollLeftToAddForSpareOrStrike > 0) {
-				// extra ball
 				isAnExtraBall = true;
 			}
 			else {

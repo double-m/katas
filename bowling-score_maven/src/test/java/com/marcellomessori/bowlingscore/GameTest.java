@@ -1,9 +1,7 @@
 package com.marcellomessori.bowlingscore;
 
 import static org.junit.Assert.*;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class GameTest {
@@ -13,10 +11,6 @@ public class GameTest {
     @Before
     public void setUp() {
 		game = new Game();
-    }
-
-    @After
-    public void tearDown() {
     }
 
 	@Test
@@ -94,7 +88,7 @@ public class GameTest {
 	public void shouldThrowAnExceptionInCaseOfExtraRolls() throws Exception {
 		game.init(0);
 
-		for (int i = 0; i < 10; i++) {
+		for (int pins = 0; pins < 10; pins++) {
 			game.roll(1);
 			game.roll(2);
 		}
@@ -112,7 +106,7 @@ public class GameTest {
 		game.init(0);
 
 		// frames 1 to 9
-		for (int i = 0; i < 9; i++) {
+		for (int pins = 0; pins < 9; pins++) {
 			game.roll(5);
 			game.roll(0);
 		}
@@ -135,7 +129,7 @@ public class GameTest {
 		game.init(0);
 
 		// frames 1 to 9
-		for (int i = 0; i < 9; i++) {
+		for (int pins = 0; pins < 9; pins++) {
 			game.roll(5);
 			game.roll(0);
 		}
@@ -158,7 +152,7 @@ public class GameTest {
 		game.init(0);
 
 		// frames 1 to 9
-		for (int i = 0; i < 9; i++) {
+		for (int pins = 0; pins < 9; pins++) {
 			game.roll(5);
 			game.roll(0);
 		}
@@ -176,7 +170,7 @@ public class GameTest {
 		game.init(0);
 
 		// frames 1 to 9
-		for (int i = 0; i < 9; i++) {
+		for (int pins = 0; pins < 9; pins++) {
 			game.roll(5);
 			game.roll(0);
 		}
